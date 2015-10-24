@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Kiosk Mode</string>
+    <string name="kiosk_mode_title">Kiosk Mode</string>
+    <string name="exit_title">Exit</string>
+    <string name="destroy_title">Destroy</string>
+</resources>
