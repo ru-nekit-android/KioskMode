@@ -2,5 +2,5 @@
     <string name="app_name">Kiosk Mode</string>
     <string name="kiosk_mode_title">Kiosk Mode</string>
     <string name="exit_title">Exit</string>
-    <string name="destroy_title">Destroy</string>
+    <string name="stop_periodic_call_title">Stop periodic call</string>
 </resources>
