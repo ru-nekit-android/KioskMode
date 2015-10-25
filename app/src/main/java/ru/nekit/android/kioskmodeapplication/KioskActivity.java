@@ -1,5 +1,6 @@
 package ru.nekit.android.kioskmodeapplication;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
@@ -19,8 +20,7 @@ import ru.nekit.android.kioskmodeapplication.databinding.ActivityKioskBinding;
 
 public class KioskActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ActivityKioskBinding binding;
-    private final List blockedKeys = new ArrayList(Arrays.asList(KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.KEYCODE_HOME));
+    private static final List BLOCKED_KEYS = new ArrayList(Arrays.asList(KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.KEYCODE_HOME));
     private HomeKeyLocker mHomeKeyLocker;
 
 
@@ -31,7 +31,7 @@ public class KioskActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         makeFullScreen();
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_kiosk);
+        ActivityKioskBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_kiosk);
         binding.exitButton.setOnClickListener(this);
         binding.destroyButton.setOnClickListener(this);
         ActionBar toolbar = getSupportActionBar();
@@ -42,6 +42,7 @@ public class KioskActivity extends AppCompatActivity implements View.OnClickList
         mHomeKeyLocker.lock(this);
     }
 
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public void makeFullScreen() {
         Window window = getWindow();
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -80,7 +81,6 @@ public class KioskActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
         }
-
     }
 
     @Override
@@ -102,11 +102,7 @@ public class KioskActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (blockedKeys.contains(event.getKeyCode())) {
-            return true;
-        } else {
-            return super.dispatchKeyEvent(event);
-        }
+        return BLOCKED_KEYS.contains(event.getKeyCode()) || super.dispatchKeyEvent(event);
     }
 }
 

@@ -25,7 +25,6 @@ public class AppContext extends Application {
     private KeyguardManager.KeyguardLock mKeyLock;
 
     public static void startPeriodicAlarm(Context context) {
-
         Intent intent = new Intent(context, StartKioskModePeriodicalReceiver.class);
         final PendingIntent pIntent = PendingIntent.getBroadcast(context, StartKioskModePeriodicalReceiver.REQUEST_CODE,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
